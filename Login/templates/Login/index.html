@@ -1,0 +1,96 @@
+{% extends 'Login/base.html' %}
+
+{% block titulo %}Django Login MongoDB - Inicio{% endblock %}
+
+{% block recursos %}{% endblock %}
+
+{% block contenido %}
+
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-12 card-deck">
+            <!-- formulario de registro -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Resgistrate!</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'perfil' %}" method="POST">
+                        {% csrf_token %}
+
+                        {% if mensaje == null %}
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ mensaje }}
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="{{ nombre }}"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ email }}"
+                                required>
+                        </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label for="pwd">Contraseña:</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <input type="hidden" id="fuente" name="fuente" value="registro">
+                        <button type="submit" class="btn btn-primary">Registrame</button>
+                    </form>
+                </div>
+            </div>
+            <!-- frmulario de login -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>Logueate!</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'perfil' %}" method="POST">
+                        {% csrf_token %}
+                        {% if mensaje_login == null %}
+                        <div class="form-group">
+                            <label for="email">Email o nombre:</label>
+                            <input type="text" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Contraseña:</label>
+                            <input type="password" class="form-control" id="contraseña" name="password">
+                        </div>
+                        {% else %}
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ mensaje_login }}
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email o nombre:</label>
+                            <input type="text" class="form-control" id="email" name="email" value="{{ email_login }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Contraseña:</label>
+                            <input type="password" class="form-control" id="contraseña" name="password">
+                        </div>
+                        {% endif %}
+                        <input type="hidden" id="fuente" name="fuente" value="login">
+                        <button type="submit" class="btn btn-primary">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
